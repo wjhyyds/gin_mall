@@ -140,7 +140,7 @@
                                     <li> <span>商品类型:　</span>
                                         <select name="goods_type_id" id="goods_type_id">
                                             <option value="0">--请选择商品类型--</option>
-
+                                            <!-- 从good.go传回来，供下拉查询 -->
                                             {{range $key,$value := .goodsTypeList}}
                                             <option value="{{$value.Id}}">{{$value.Title}}</option>
                                             {{end}}
@@ -184,7 +184,7 @@
     });
     //获取商品类型属性
     $(function () {
-        $("#goods_type_id").change(function () {
+        $("#goods_type_id").change(function () { //用jax捕捉点击动作
             var cateId = $(this).val()
 
             $.get("/admin/goods/goodsTypeAttribute", { "cateId": cateId }, function (response) {
@@ -198,7 +198,7 @@
                         } else if (attrData[i].attr_type == 2) {
                             str += '<li><span>' + attrData[i].title + ': 　</span> <input type="hidden" name="attr_id_list" value="' + attrData[i].id + '">  <textarea cols="50" rows="3" name="attr_value_list"></textarea></li>'
                         } else {
-                            var attrArray = attrData[i].attr_value.split("\n")
+                            var attrArray = attrData[i].attr_value.split("\n") //循环遍历是否提供下拉框
                             str += '<li><span>' + attrData[i].title + ': 　</span>  <input type="hidden" name="attr_id_list" value="' + attrData[i].id + '" />';
                             str += '<select name="attr_value_list">'
                             for (var j = 0; j < attrArray.length; j++) {

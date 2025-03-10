@@ -84,12 +84,12 @@ func (con GoodsController) Add(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin/goods/add.html", gin.H{
 		"goodsCateList":  goodsCateList,
 		"goodsColorList": goodsColorList,
-		"goodsTypeList":  goodsTypeList,
+		"goodsTypeList":  goodsTypeList, //传给前端供使用
 	})
 }
 
 func (con GoodsController) GoodsTypeAttribute(c *gin.Context) {
-	cateId, err1 := models.Int(c.Query("cateId"))
+	cateId, err1 := models.Int(c.Query("cateId")) //获取前端传来cater id
 	goodsTypeAttributeList := []models.GoodsTypeAttribute{}
 	err2 := models.DB.Where("cate_id = ?", cateId).Find(&goodsTypeAttributeList).Error
 	if err1 != nil || err2 != nil {

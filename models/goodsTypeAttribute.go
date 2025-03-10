@@ -1,6 +1,6 @@
 package models
 
-type GoodsTypeAttribute struct {
+type GoodsTypeAttribute struct { //配置这个json和获取前端返回数据
 	Id        int    `json:"id"`
 	CateId    int    `json:"cate_id"`
 	Title     string `json:"title"`
