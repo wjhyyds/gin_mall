@@ -463,20 +463,25 @@ func (con GoodsController) EditorImageUpload(c *gin.Context) {
 	//上传图片
 	imgDir, err := models.UploadImg(c, "file") //注意：可以在网络里面看到传递的参数
 	if err != nil {
+		//如果上传图片失败，返回空链接
 		c.JSON(http.StatusOK, gin.H{
 			"link": "",
 		})
 	} else {
+		//如果上传图片成功，判断OSS状态
 		if models.GetOssStatus() != 1 {
+			//如果OSS状态不为1，则进行图片压缩
 			wg.Add(1)
 			go func() {
 				models.ResizeGoodsImage(imgDir)
 				wg.Done()
 			}()
+			//返回压缩后的图片链接
 			c.JSON(http.StatusOK, gin.H{
 				"link": "/" + imgDir,
 			})
 		} else {
+			//如果OSS状态为1，则返回OSS链接
 			c.JSON(http.StatusOK, gin.H{
 				"link": models.GetSettingFromColumn("OssDomain") + imgDir,
 			})

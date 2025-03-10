@@ -46,7 +46,7 @@ func GetUnix() int64 {
 
 //获取纳秒
 func GetUnixNano() int64 {
-	return time.Now().UnixNano()
+	return time.Now().UnixNano() //上传图片只用毫秒会重名
 }
 
 //获取当前的日期
