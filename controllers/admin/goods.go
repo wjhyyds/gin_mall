@@ -123,7 +123,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 	goodsVersion := c.PostForm("goods_version")
 	goodsGift := c.PostForm("goods_gift")
 	goodsFitting := c.PostForm("goods_fitting")
-	//获取的是切片
+	//获取的是切片 checkbox里面的值
 	goodsColorArr := c.PostFormArray("goods_color")
 
 	goodsKeywords := c.PostForm("goods_keywords")
@@ -139,6 +139,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 	addTime := int(models.GetUnix())
 
 	//2、获取颜色信息 把颜色转化成字符串
+	// [白色，褐色]变成白色,褐色
 	goodsColorStr := strings.Join(goodsColorArr, ",")
 
 	//3、上传图片   生成缩略图
@@ -173,7 +174,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 		GoodsFitting:  goodsFitting,
 		GoodsKeywords: goodsKeywords,
 		GoodsDesc:     goodsDesc,
-		GoodsContent:  goodsContent,
+		GoodsContent:  goodsContent, //富文本编辑器保存内容
 		IsDelete:      isDelete,
 		IsHot:         isHot,
 		IsBest:        isBest,
@@ -205,7 +206,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 		wg.Done()
 	}()
 	//6、增加规格包装
-	wg.Add(1)
+	wg.Add(1)//开协程
 	go func() {
 		attrIdList := c.PostFormArray("attr_id_list")
 		attrValueList := c.PostFormArray("attr_value_list")
@@ -232,7 +233,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 		}
 		wg.Done()
 	}()
-	wg.Wait()
+	wg.Wait() //Wait所有的协程执行完
 	con.Success(c, "增加数据成功", "/admin/goods")
 }
 
