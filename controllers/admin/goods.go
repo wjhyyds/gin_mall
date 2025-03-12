@@ -206,7 +206,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 		wg.Done()
 	}()
 	//6、增加规格包装
-	wg.Add(1)//开协程
+	wg.Add(1) //开协程
 	go func() {
 		attrIdList := c.PostFormArray("attr_id_list")
 		attrValueList := c.PostFormArray("attr_value_list")
@@ -237,7 +237,7 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 	con.Success(c, "增加数据成功", "/admin/goods")
 }
 
-//修改
+// 修改
 func (con GoodsController) Edit(c *gin.Context) {
 
 	// 1、获取要修改的商品数据
@@ -255,7 +255,7 @@ func (con GoodsController) Edit(c *gin.Context) {
 	// 3、获取所有颜色 以及选中的颜色
 	goodsColorSlice := strings.Split(goods.GoodsColor, ",")
 	goodsColorMap := make(map[string]string)
-	for _, v := range goodsColorSlice {
+	for _, v := range goodsColorSlice { //存放颜色切片的
 		goodsColorMap[v] = v
 	}
 
@@ -286,7 +286,7 @@ func (con GoodsController) Edit(c *gin.Context) {
 		} else if v.AttributeType == 2 {
 			goodsAttrStr += fmt.Sprintf(`<li><span>%v: 　</span><input type="hidden" name="attr_id_list" value="%v" />  <textarea cols="50" rows="3" name="attr_value_list">%v</textarea></li>`, v.AttributeTitle, v.AttributeId, v.AttributeValue)
 		} else {
-			//获取当前类型对应的值
+			//获取当前类型对应的值 就是是否两个徐娜想看
 			goodsTypeArttribute := models.GoodsTypeAttribute{Id: v.AttributeId}
 			models.DB.Find(&goodsTypeArttribute)
 			attrValueSlice := strings.Split(goodsTypeArttribute.AttrValue, "\n")
@@ -459,7 +459,7 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 
 }
 
-//富文本编辑器上传图片
+// 富文本编辑器上传图片
 func (con GoodsController) EditorImageUpload(c *gin.Context) {
 	//上传图片
 	imgDir, err := models.UploadImg(c, "file") //注意：可以在网络里面看到传递的参数
@@ -491,7 +491,7 @@ func (con GoodsController) EditorImageUpload(c *gin.Context) {
 	}
 }
 
-//图库上传图片
+// 图库上传图片
 func (con GoodsController) GoodsImageUpload(c *gin.Context) {
 	//上传图片
 	imgDir, err := models.UploadImg(c, "file") //注意：可以在网络里面看到传递的参数
@@ -515,7 +515,7 @@ func (con GoodsController) GoodsImageUpload(c *gin.Context) {
 	}
 }
 
-//修改商品图库关联的颜色
+// 修改商品图库关联的颜色
 func (con GoodsController) ChangeGoodsImageColor(c *gin.Context) {
 	//获取图片id 获取颜色id
 	goodsImageId, err1 := models.Int(c.Query("goods_image_id"))
@@ -538,7 +538,7 @@ func (con GoodsController) ChangeGoodsImageColor(c *gin.Context) {
 
 }
 
-//删除图库
+// 删除图库
 func (con GoodsController) RemoveGoodsImage(c *gin.Context) {
 	//获取图片id
 	goodsImageId, err1 := models.Int(c.Query("goods_image_id"))
@@ -560,7 +560,7 @@ func (con GoodsController) RemoveGoodsImage(c *gin.Context) {
 
 }
 
-//删除数据
+// 删除数据
 func (con GoodsController) Delete(c *gin.Context) {
 	id, err := models.Int(c.Query("id"))
 	if err != nil {

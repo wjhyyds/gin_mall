@@ -49,7 +49,8 @@
                                 <td>{{$value.ClickCount}}</td>      
                                 
                                 <td class="text-center">
-                                    {{if eq $value.Status 1}}                              
+                                    {{if eq $value.Status 1}}                                           
+                                                                                                <!--定义一个特殊的id        指定一个数据库表名   要修改的数据表域      -->
                                          <img class="chStatus" src="/static/admin/images/yes.gif" data-id="{{$value.Id}}" data-table="goods" data-field="status"/>
                                     {{else}}
                                          <img class="chStatus" src="/static/admin/images/no.gif" data-id="{{$value.Id}}" data-table="goods" data-field="status" />

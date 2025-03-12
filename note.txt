@@ -1,0 +1,8 @@
+1 netstat -ano 查看所有端口和pid
+2 net start mysql 启动mysql
+3 taskkill /pid 号码 /f
+4 mysqld --console --skip-grant-tables --shared-memory
+tasklist| findstr "mysql"  找到对应的pid号
+taskkill/f /t /im mysqld.exe   杀掉属于这个exe的所有pid
+
+57 增加界面逻辑 前端代码点击"edit"会传给一个id>加路由>加控制器>后端控制器获取传来的id >获取对应其他表单的id
