@@ -26,7 +26,7 @@ func init() {
 	ip := config.Section("redis").Key("ip").String()
 	port := config.Section("redis").Key("port").String()
 	redisEnable, _ = config.Section("redis").Key("redisEnable").Bool()
-	// fmt.Println("redis数据库连接失败")
+	fmt.Println("redis数据库连接失败")
 	if redisEnable {
 		//连接redis数据库
 		rdbClient = redis.NewClient(&redis.Options{

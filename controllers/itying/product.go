@@ -53,7 +53,7 @@ func (con ProductController) Category(c *gin.Context) {
 	if currentCate.Template != "" {
 		tpl = currentCate.Template
 	}
-
+	//抽离公共数据模版
 	con.Render(c, tpl, gin.H{
 		"page":        page,
 		"goodsList":   goodsList,
