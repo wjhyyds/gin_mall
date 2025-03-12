@@ -15,7 +15,7 @@ type ProductController struct {
 func (con ProductController) Category(c *gin.Context) {
 
 	//分类id
-	cateId, _ := models.Int(c.Param("id"))
+	cateId, _ := models.Int(c.Param("id")) //param获取动态路由
 	//当前页
 	page, _ := models.Int(c.Query("page"))
 	if page == 0 {

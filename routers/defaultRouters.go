@@ -11,7 +11,7 @@ func DefaultRoutersInit(r *gin.Engine) {
 	defaultRouters := r.Group("/")
 	{
 		defaultRouters.GET("/", itying.DefaultController{}.Index)
-		defaultRouters.GET("/category:id", itying.ProductController{}.Category)
+		defaultRouters.GET("/category:id", itying.ProductController{}.Category)//配置动态路由
 		defaultRouters.GET("/detail", itying.ProductController{}.Detail)
 		defaultRouters.GET("/product/getImgList", itying.ProductController{}.GetImgList)
 
