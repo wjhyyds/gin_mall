@@ -145,7 +145,7 @@ func (con ProductController) Detail(c *gin.Context) {
 	goodsAttrStr = strings.ReplaceAll(goodsAttrStr, "，", ",")
 	goodsAttrStr = strings.ReplaceAll(goodsAttrStr, "：", ":")
 
-	var goodsItemAttrList []models.GoodsItemAttr
+	var goodsItemAttrList []models.GoodsItemAttr //商品更多属性
 	if strings.Contains(goodsAttrStr, ":") {
 		goodsAttrStrSlice := strings.Split(goodsAttrStr, "|")
 		//创建切片的存储空间
@@ -163,7 +163,7 @@ func (con ProductController) Detail(c *gin.Context) {
 	// })
 
 	// c.String(200, "Detail")
-	tpl := "itying/product/detail.html"
+	tpl := "itying/product/detail.html" //这里是渲染更多的商品属性，如鞋子尺码这种
 
 	con.Render(c, tpl, gin.H{
 		"goods":             goods,
