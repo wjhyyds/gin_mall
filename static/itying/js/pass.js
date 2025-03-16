@@ -14,12 +14,12 @@
         getCaptcha:function(){
             $.get("/pass/captcha?t="+Math.random(),function(response){              
                 $("#captchaId").val(response.captchaId)
-                $("#captchaImg").attr("src",response.captchaImage)
+                $("#captchaImg").attr("src",response.captchaImage)//显示验证码图片
             })
         },
         captchaImgChage:function(){
             var _that=this;
-            $("#captchaImg").click(function(){
+            $("#captchaImg").click(function(){ //监听验证码图片的点击事件
                 _that.getCaptcha()
             })
         },initRegisterStep1:function(){

@@ -56,7 +56,7 @@ func (con LoginController) DoLogin(c *gin.Context) {
 }
 
 func (con LoginController) Captcha(c *gin.Context) {
-	id, b64s, err := models.MakeCaptcha(34, 100, 2)
+	id, b64s, err := models.MakeCaptcha(34, 100, 2) //配置验证码框框大小
 
 	if err != nil {
 		fmt.Println(err)

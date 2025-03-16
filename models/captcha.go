@@ -14,7 +14,7 @@ var store = base64Captcha.DefaultMemStore
 func MakeCaptcha(height int, width int, length int) (string, string, error) {
 	var driver base64Captcha.Driver
 	driverString := base64Captcha.DriverString{
-		Height:          height,
+		Height:          height,//分别配置后天验证码界面和注册验证码界面
 		Width:           width,
 		NoiseCount:      0,
 		ShowLineOptions: 2 | 4,

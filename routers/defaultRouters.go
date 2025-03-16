@@ -26,7 +26,7 @@ func DefaultRoutersInit(r *gin.Engine) {
 		defaultRouters.GET("/cart/changeAllCart", itying.CartController{}.ChangeAllCart)
 		defaultRouters.GET("/cart/delCart", itying.CartController{}.DelCart)
 
-		defaultRouters.GET("/pass/login", itying.PassController{}.Login)
+		defaultRouters.GET("/pass/login", itying.PassController{}.Login) //新用户注册路由
 		defaultRouters.GET("/pass/captcha", itying.PassController{}.Captcha)
 
 		defaultRouters.GET("/pass/registerStep1", itying.PassController{}.RegisterStep1)
