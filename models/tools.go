@@ -318,11 +318,11 @@ str就是markdown语法
 
 func FormatAttr(str string) string {
 
-	tempSlice := strings.Split(str, "\n")
+	tempSlice := strings.Split(str, "\n") //按照换行符进行分割
 	var tempStr string
 	for _, v := range tempSlice {
 		md := []byte(v)
-		output := markdown.ToHTML(md, nil, nil)
+		output := markdown.ToHTML(md, nil, nil) // 转为html叠加
 		tempStr += string(output)
 	}
 	return tempStr

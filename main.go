@@ -21,7 +21,7 @@ func main() {
 		"Sub":        models.Sub,
 		"Mul":        models.Mul,
 		"Substr":     models.Substr,
-		"FormatAttr": models.FormatAttr,
+		"FormatAttr": models.FormatAttr, //绑定对应的模版函数，这里是HTML函数
 	})
 	//加载模板 放在配置路由前面
 	r.LoadHTMLGlob("templates/**/**/*")
