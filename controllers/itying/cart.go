@@ -62,7 +62,7 @@ func (con CartController) AddCart(c *gin.Context) {
 
 	// 1、获取增加购物车的数据,放在结构体里面  （把哪一个商品加入到购物车）
 	colorId, _ := models.Int(c.Query("color_id"))
-	goodsId, err := models.Int(c.Query("goods_id"))
+	goodsId, err := models.Int(c.Query("goods_id")) //这里面如果有更多的属性自行添加
 	if err != nil {
 		c.Redirect(302, "/")
 	}
@@ -72,7 +72,7 @@ func (con CartController) AddCart(c *gin.Context) {
 	models.DB.Where("id=?", goodsId).Find(&goods)
 	models.DB.Where("id=?", colorId).Find(&goodsColor)
 
-	currentData := models.Cart{
+	currentData := models.Cart{ //这个cart自己定义，不写进数据库
 		Id:           goodsId,
 		Title:        goods.Title,
 		Price:        goods.Price,
@@ -94,7 +94,7 @@ func (con CartController) AddCart(c *gin.Context) {
 		if models.HasCartData(cartList, currentData) {
 			for i := 0; i < len(cartList); i++ {
 				if cartList[i].Id == currentData.Id && cartList[i].GoodsColor == currentData.GoodsColor && cartList[i].GoodsAttr == currentData.GoodsAttr {
-					cartList[i].Num = cartList[i].Num + 1
+					cartList[i].Num = cartList[i].Num + 1 //数量加1
 				}
 			}
 		} else {

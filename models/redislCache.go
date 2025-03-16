@@ -49,7 +49,7 @@ type cacheDb struct{}
 
 func (c cacheDb) Set(key string, value interface{}, expiration int) {
 	if redisEnable {
-		v, err := json.Marshal(value)
+		v, err := json.Marshal(value) //这里的value是前面的cookie
 		if err == nil {
 			rdbClient.Set(ctx, key, string(v), time.Second*time.Duration(expiration))
 		}

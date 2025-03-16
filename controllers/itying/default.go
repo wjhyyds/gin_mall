@@ -15,10 +15,10 @@ type DefaultController struct {
 func (con DefaultController) Index(c *gin.Context) {
 
 	//演示：设置cookie 获取cookie
-	// models.Cookie.Set(c, "username", "李四")
-	// var username string
-	// models.Cookie.Get(c, "username", &username)
-	// fmt.Println(username)
+	models.Cookie.Set(c, "username", "李四")
+	var username string
+	models.Cookie.Get(c, "username", &username)
+	fmt.Println(username)
 
 	timeStart := time.Now().UnixNano()
 	//1、获取顶部导航 挪到了base.go里面

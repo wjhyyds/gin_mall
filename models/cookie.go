@@ -10,13 +10,13 @@ import (
 type ginCookie struct{}
 
 //写入数据的方法
-func (cookie ginCookie) Set(c *gin.Context, key string, value interface{}) {
+func (cookie ginCookie) Set(c *gin.Context, key string, value interface{}) { //value是传入的数据
 
-	bytes, _ := json.Marshal(value)
+	bytes, _ := json.Marshal(value) //json 序列化才能存到cookie
 	//des加密
 	desKey := []byte("itying.c") //注意：key必须是8位
 	encData, _ := DesEncrypt(bytes, desKey)
-	c.SetCookie(key, string(encData), 3600*24*30, "/", c.Request.Host, false, true)
+	c.SetCookie(key, string(encData), 3600*24*30, "/", c.Request.Host, false, true) //设置cookie
 }
 
 //获取数据的方法
