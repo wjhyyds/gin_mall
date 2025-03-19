@@ -1,6 +1,6 @@
 package models
 
-type Cart struct {
+type Cart struct { //购物车表
 	Id           int
 	Title        string
 	Price        float64
@@ -12,7 +12,7 @@ type Cart struct {
 	GoodsColor   string
 	GoodsImg     string
 	GoodsAttr    string
-	Checked      bool
+	Checked      bool //是否选中
 }
 
 //判断购物车里面有没有当前数据

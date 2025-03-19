@@ -1,6 +1,6 @@
 package models
 
-type Order struct {
+type Order struct {//表单的数据类型
 	Id          int
 	OrderId     string
 	Uid         int

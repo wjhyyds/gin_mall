@@ -15,7 +15,7 @@ func (con BuyController) Checkout(c *gin.Context) {
 	//1、获取购物车中选择的商品
 
 	cartList := []models.Cart{}
-	models.Cookie.Get(c, "cartList", &cartList)
+	models.Cookie.Get(c, "cartList", &cartList) //获取cookie中保存的商品信息
 
 	orderList := []models.Cart{}
 	var allPrice float64
@@ -39,11 +39,11 @@ func (con BuyController) Checkout(c *gin.Context) {
 	//3、生成签名
 	orderSign := models.Md5(models.GetRandomNum())
 	session := sessions.Default(c)
-	session.Set("orderSign", orderSign)
+	session.Set("orderSign", orderSign) //相当于一个tokens
 	session.Save()
 
 	//4、判断orderList数据是否存在
-	if len(orderList) == 0 {
+	if len(orderList) == 0 { //刷新导致重新生成Checkout方法，签名重新生成了但是购物车没有数据
 		c.Redirect(302, "/")
 		return
 	}
@@ -68,20 +68,20 @@ func (con BuyController) Checkout(c *gin.Context) {
 */
 func (con BuyController) DoCheckout(c *gin.Context) {
 	//0、防止重复提交订单
-	orderSignClient := c.PostForm("orderSign")
+	orderSignClient := c.PostForm("orderSign") //获取表单数据里面的这个数据
 	session := sessions.Default(c)
-	orderSignSession := session.Get("orderSign")
-	orderSignServer, ok := orderSignSession.(string)
+	orderSignSession := session.Get("orderSign") //空接口类型
+	orderSignServer, ok := orderSignSession.(string) //判断服务端和客户端的唯一标识一不一样
 	if !ok {
 		c.Redirect(302, "/")
 		return
 	}
 
 	if orderSignClient != orderSignServer {
-		c.Redirect(302, "/")
+		c.Redirect(302, "/")//重复创建，返回首页
 		return
 	}
-	session.Delete("orderSign")
+	session.Delete("orderSign") //这里删掉了，再次点击去结算按钮就会302重定向
 	session.Save()
 
 	// 1、获取用户信息 获取用户的收货地址信息
@@ -124,7 +124,7 @@ func (con BuyController) DoCheckout(c *gin.Context) {
 	//增加数据成功以后可以通过  order.Id
 	if err == nil {
 		// 把商品信息放在商品对应的订单表
-		for i := 0; i < len(orderList); i++ {
+		for i := 0; i < len(orderList); i++ { // TODO: 优化这里如果增加失败的话 增加事务用来回滚操作
 			orderItem := models.OrderItem{
 				OrderId:      order.Id,
 				Uid:          user.Id,
@@ -144,10 +144,10 @@ func (con BuyController) DoCheckout(c *gin.Context) {
 	noSelectCartList := []models.Cart{}
 	for i := 0; i < len(cartList); i++ {
 		if !cartList[i].Checked {
-			noSelectCartList = append(noSelectCartList, cartList[i])
+			noSelectCartList = append(noSelectCartList, cartList[i])//保留没被选中的
 		}
 	}
-	models.Cookie.Set(c, "cartList", noSelectCartList)
+	models.Cookie.Set(c, "cartList", noSelectCartList) //更新购物车数据
 
 	c.Redirect(302, "/buy/pay?orderId="+models.String(order.Id))
 }
